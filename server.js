@@ -5,6 +5,7 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 app.use(express.json());
@@ -16,7 +17,8 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
   const TaskSchema = new mongoose.Schema({
-    taskId: { type: String, unique: true },
+    // taskId: { type: String, unique: true },
+    taskId: { type: String, unique: true, default: uuidv4 }, 
     taskName: { type: String, required: true },
     taskDescription: { type: String, required: true },
     priority: { type: String, enum: ["Low", "Medium", "High"], default: "Low" },
